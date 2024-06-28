@@ -11,17 +11,17 @@
             <div class="text-xl font-medium text-center text-gray-500 ml-5">
                 <ul class="flex flex-wrap -mb-px">
                     <li class="me-2">
-                        <a href="{{route('admin.order')}}" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" >
+                        <a href="{{route('admin.order')}}" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">
                             Placed
                         </a>
                     </li>
                     <li class="me-2">
-                        <a href="{{route('admin.order.awaiting')}}" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" >
+                        <a href="{{route('admin.order.awaiting')}}" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300">
                             Awaiting Shipment
                         </a>
                     </li>
                     <li class="me-2">
-                        <a href="{{route('admin.order.shipped')}}" class="inline-block p-4 text-emerald-600 border-b-2 border-emerald-600 rounded-t-lg active " >
+                        <a href="{{route('admin.order.shipped')}}" class="inline-block p-4 text-emerald-600 border-b-2 border-emerald-600 rounded-t-lg active ">
                             Shipped
                         </a>
                     </li>
@@ -42,11 +42,14 @@
                     </li>
                 </ul>
 
-                    <div class="flex justify-end gap-5 mr-10">
-                        <div>
-                            <input type="text" class="rounded-lg bg-white py-2 border-2 px-3 w-full">
-                        </div>
+                @if ($orders->count() != 0)
+                <div class="flex justify-end gap-5 mr-10">
+                    <div class="mb-3">
+                        <a href="{{route('admin.order.pdf.shipped')}}" class="py-3 px-10 bg-emerald-300 rounded-lg text-lg text-center cursor-pointer hover:bg-emerald-400 font-bold">Print</a>
                     </div>
+                </div>
+                @endif
+
 
 
             </div>
@@ -54,85 +57,86 @@
 
             <div class="relative overflow-x-auto sm:rounded-lg mx-5 mt-3">
 
-                    <table class="w-full text-lg text-left rtl:text-right text-gray-500" id="placed-orders-table">
-                        <thead class="text-lg text-gray-700 uppercase bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-6 py-3">
-                                    Order Id
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Product Name
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Price
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Qty
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Address
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Date
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Options
-                                </th>
-                            </tr>
-                        </thead>
+                @if ($orders->count() != 0)
+                <table class="w-full text-lg text-left rtl:text-right text-gray-500" id="placed-orders-table">
+                    <thead class="text-lg text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Order Id
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Product Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Price
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Qty
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Address
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Date
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Options
+                            </th>
+                        </tr>
+                    </thead>
 
-                        <tbody>
+                    <tbody>
 
                         @foreach ($orders as $order)
-                        
+
                         <tr class="bg-white border-b hover:bg-gray-50 ">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                        {{$order->order_id}}
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        @foreach ($allProducts as $allProduct)
-                                        @if ($allProduct->id==$order->product_id)
-                                        {{$allProduct->title}}
-                                        @endif
-                                        @endforeach
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        @foreach ($allProducts as $allProduct)
-                                        @if ($allProduct->id==$order->product_id)
-                                        Rs.{{$allProduct->price}}.00
-                                        @endif
-                                        @endforeach
-                                    </td>
-                                    <td class="px-6 py-4">
-                                    {{$order->qty}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{$userAddress[0]->line}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                    {{$order->created_at}}
-                                    </td>
-                                    </td>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                                {{$order->order_id}}
+                            </th>
+                            <td class="px-6 py-4">
+                                @foreach ($allProducts as $allProduct)
+                                @if ($allProduct->id==$order->product_id)
+                                {{$allProduct->title}}
+                                @endif
+                                @endforeach
+                            </td>
+                            <td class="px-6 py-4">
+                                @foreach ($allProducts as $allProduct)
+                                @if ($allProduct->id==$order->product_id)
+                                Rs.{{$allProduct->price}}.00
+                                @endif
+                                @endforeach
+                            </td>
+                            <td class="px-6 py-4">
+                                {{$order->qty}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{$userAddress[0]->line}}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{$order->created_at}}
+                            </td>
+                            </td>
 
-                                    <td class="px-6 py-4">
+                            <td class="px-6 py-4">
 
-                                        <button onclick="showandHidePopup('order-delivered-pop-up-{{$order->id}}');" class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-300 ">
-                                            Delivered
-                                        </button>
+                                <button onclick="showandHidePopup('order-delivered-pop-up-{{$order->id}}');" class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-300 ">
+                                    Delivered
+                                </button>
 
-                                        <button onclick="showandHidePopup('order-await-pop-up-{{$order->id}}');" class="p-3 bg-red-200 rounded-xl  cursor-pointer  hover:bg-red-300">
-                                            Awaiting
-                                        </button>
+                                <button onclick="showandHidePopup('order-await-pop-up-{{$order->id}}');" class="p-3 bg-red-200 rounded-xl  cursor-pointer  hover:bg-red-300">
+                                    Awaiting
+                                </button>
 
-                                        <button onclick="showandHidePopup('order-cancel-pop-up-{{$order->id}}');" class="p-3 bg-red-200 rounded-xl  cursor-pointer  hover:bg-red-300">
-                                            Cancel
-                                        </button>
+                                <button onclick="showandHidePopup('order-cancel-pop-up-{{$order->id}}');" class="p-3 bg-red-200 rounded-xl  cursor-pointer  hover:bg-red-300">
+                                    Cancel
+                                </button>
 
 
-                                    </td>
-                                </tr>
+                            </td>
+                        </tr>
 
-                                
+
                         <!-- order delivered popup -->
                         <section id="order-delivered-pop-up-{{$order->id}}" class="fixed top-0 left-0 w-full h-full opacity-100  backdrop-blur-sm justify-center items-center rounded hidden">
                             <div class="h-screen flex items-center justify-center">
@@ -150,7 +154,7 @@
                             </div>
                         </section>
 
-                        
+
                         <!-- order await popup -->
                         <section id="order-await-pop-up-{{$order->id}}" class="fixed top-0 left-0 w-full h-full opacity-100  backdrop-blur-sm justify-center items-center rounded hidden">
                             <div class="h-screen flex items-center justify-center">
@@ -167,7 +171,7 @@
                                 </div>
                             </div>
                         </section>
-                        
+
                         <!-- order cancel popup -->
                         <section id="order-cancel-pop-up-{{$order->id}}" class="fixed top-0 left-0 w-full h-full opacity-100  backdrop-blur-sm justify-center items-center rounded hidden">
                             <div class="h-screen flex items-center justify-center">
@@ -187,20 +191,18 @@
 
                         @endforeach
 
-                                
+                    </tbody>
+                </table>
 
-                                
+                @else
+                <div class="text-xl font-medium text-center text-gray-500 ml-5">No Orders Found</div>
+                @endif
 
-                        </tbody>
-                    </table>
 
-                    <div class="flex justify-end">
-                        <button onclick="orderPrint('placed-orders-table');" class="mr-10 py-2 px-3 bg-slate-100 rounded-lg mt-5 text-lg font-bold border-2 border-emerald-600">Print</button>
-                    </div>
+
             </div>
         </div>
     </div>
 </section>
 
 @include('admin.footer')
-

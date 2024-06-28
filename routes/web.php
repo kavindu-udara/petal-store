@@ -6,9 +6,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Admin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\Seller;
 use App\Http\Middleware\User;
+use App\Http\Controllers\PDFController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -88,60 +90,123 @@ Route::prefix('user')->group(function () {
 });
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard')->middleware(Admin::class);
     // ->middleware('admin');
     Route::prefix('orders')->group(function () {
-        Route::get('/', [AdminController::class, 'goToPlacedOrders'])->name('admin.order');
+        Route::get('/', [AdminController::class, 'goToPlacedOrders'])->name('admin.order')->middleware(Admin::class);
         Route::get('/awaiting', [AdminController::class, 'goToAwaitingShipmentOrders'])->name('admin.order.awaiting');
-        Route::get('/shipped', [AdminController::class, 'goToShippedShipmentOrders'])->name('admin.order.shipped');
-        Route::get('/delivered', [AdminController::class, 'goToDeliveredOrders'])->name('admin.order.delivered');
-        Route::get('/cancelled', [AdminController::class, 'goToCancelledOrders'])->name('admin.order.cancelled');
-        Route::get('/return', [AdminController::class, 'goToReturnOrders'])->name('admin.order.return');
 
-        Route::post('/await/{id}', [AdminController::class, 'awaitOrder'])->name('admin.order.update.await');
-        Route::post('/cancel/{id}', [AdminController::class, 'cancelOrder'])->name('admin.order.update.cancel');
-        Route::post('/shipped/{id}', [AdminController::class, 'shippedOrder'])->name('admin.order.update.shipped');
-        Route::post('/placed/{id}', [AdminController::class, 'placedOrder'])->name('admin.order.update.placed');
-        Route::post('/delivered/{id}', [AdminController::class, 'deliveredOrder'])->name('admin.order.update.delivered');
-        Route::post('/return/{id}', [AdminController::class, 'returnOrder'])->name('admin.order.update.return');
-        Route::post('/return/cancel/{id}', [AdminController::class, 'cancelReturn'])->name('admin.order.update.return.cancel');
+        Route::get('/shipped', [AdminController::class, 'goToShippedShipmentOrders'])->name('admin.order.shipped')->middleware(Admin::class);
 
-        Route::post('/stock/add/{id}/', [AdminController::class, 'addToStock'])->name('admin.order.update.add.to.stock');
-        Route::post('/stock/return/add/{id}/', [AdminController::class, 'addToStockReturned'])->name('admin.order.update.add.to.stock.return');
-    });
+        Route::get('/delivered', [AdminController::class, 'goToDeliveredOrders'])->name('admin.order.delivered')->middleware(Admin::class);
+
+        Route::get('/cancelled', [AdminController::class, 'goToCancelledOrders'])->name('admin.order.cancelled')->middleware(Admin::class);
+
+        Route::get('/return', [AdminController::class, 'goToReturnOrders'])->name('admin.order.return')->middleware(Admin::class);
+
+        Route::post('/await/{id}', [AdminController::class, 'awaitOrder'])->name('admin.order.update.await')->middleware(Admin::class);
+        Route::post('/cancel/{id}', [AdminController::class, 'cancelOrder'])->name('admin.order.update.cancel')->middleware(Admin::class);
+        Route::post('/shipped/{id}', [AdminController::class, 'shippedOrder'])->name('admin.order.update.shipped')->middleware(Admin::class);
+        Route::post('/placed/{id}', [AdminController::class, 'placedOrder'])->name('admin.order.update.placed')->middleware(Admin::class);
+        Route::post('/delivered/{id}', [AdminController::class, 'deliveredOrder'])->name('admin.order.update.delivered')->middleware(Admin::class);
+        Route::post('/return/{id}', [AdminController::class, 'returnOrder'])->name('admin.order.update.return')->middleware(Admin::class);
+        Route::post('/return/cancel/{id}', [AdminController::class, 'cancelReturn'])->name('admin.order.update.return.cancel')->middleware(Admin::class);
+
+        Route::post('/stock/add/{id}/', [AdminController::class, 'addToStock'])->name('admin.order.update.add.to.stock')->middleware(Admin::class);
+        Route::post('/stock/return/add/{id}/', [AdminController::class, 'addToStockReturned'])->name('admin.order.update.add.to.stock.return')->middleware(Admin::class);
+    })->middleware(Admin::class);
 
     Route::prefix('products')->group(function () {
-        Route::get('/', [AdminController::class, 'goToPendingProducts'])->name('admin.products');
-        Route::get('/all', [AdminController::class, 'goToAllProducts'])->name('admin.products.all');
-        Route::get('/hidden', [AdminController::class, 'goToHiddenProducts'])->name('admin.products.hidden');
-        Route::get('/disapproved', [AdminController::class, 'goToDisapprovedProducts'])->name('admin.products.disapproved');
+        Route::get('/', [AdminController::class, 'goToPendingProducts'])->name('admin.products')->middleware(Admin::class);
 
-        Route::post('/approve/{id}', [AdminController::class, 'approveProduct'])->name('admin.product.approve');
-        Route::post('/disapprove/{id}', [AdminController::class, 'disapproveProduct'])->name('admin.product.disapprove');
-        Route::post('/hide/{id}', [AdminController::class, 'hideProduct'])->name('admin.product.hide');
-        Route::post('/pending/{id}', [AdminController::class, 'pendingProduct'])->name('admin.product.pending');
-        Route::post('/unhide/{id}', [AdminController::class, 'approveProduct'])->name('admin.product.unhide');
-        Route::post('/delete/{id}', [AdminController::class, 'deleteProduct'])->name('admin.product.delete');
-    });
+        Route::get('/all', [AdminController::class, 'goToAllProducts'])->name('admin.products.all')->middleware(Admin::class);
+        Route::get('/hidden', [AdminController::class, 'goToHiddenProducts'])->name('admin.products.hidden')->middleware(Admin::class);
+        Route::get('/disapproved', [AdminController::class, 'goToDisapprovedProducts'])->name('admin.products.disapproved')->middleware(Admin::class);
+
+        Route::post('/approve/{id}', [AdminController::class, 'approveProduct'])->name('admin.product.approve')->middleware(Admin::class);
+        Route::post('/disapprove/{id}', [AdminController::class, 'disapproveProduct'])->name('admin.product.disapprove')->middleware(Admin::class);
+        Route::post('/hide/{id}', [AdminController::class, 'hideProduct'])->name('admin.product.hide')->middleware(Admin::class);
+        Route::post('/pending/{id}', [AdminController::class, 'pendingProduct'])->name('admin.product.pending')->middleware(Admin::class);
+        Route::post('/unhide/{id}', [AdminController::class, 'approveProduct'])->name('admin.product.unhide')->middleware(Admin::class);
+        Route::post('/delete/{id}', [AdminController::class, 'deleteProduct'])->name('admin.product.delete')->middleware(Admin::class);
+    })->middleware(Admin::class);
 
     Route::prefix('users')->group(function () {
-        Route::get('/', [AdminController::class, 'goToAllUsers'])->name('admin.users');
-        Route::get('/suspended', [AdminController::class, 'goToSuspendedUsers'])->name('admin.users.suspended');
-        Route::get('/banned', [AdminController::class, 'goToBannedUsers'])->name('admin.users.banned');
+        Route::get('/', [AdminController::class, 'goToAllUsers'])->name('admin.users')->middleware(Admin::class);
+        Route::get('/suspended', [AdminController::class, 'goToSuspendedUsers'])->name('admin.users.suspended')->middleware(Admin::class);
+        Route::get('/banned', [AdminController::class, 'goToBannedUsers'])->name('admin.users.banned')->middleware(Admin::class);
 
-        Route::post('/suspend/{id}', [AdminController::class, 'suspendUser'])->name('admin.user.suspend');
-        Route::post('/ban/{id}', [AdminController::class, 'banUser'])->name('admin.user.ban');
-        Route::post('/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete');
-        Route::post('/unsuspend/{id}', [AdminController::class, 'unsuspendUser'])->name('admin.user.unsuspend');
-        Route::post('/unban/{id}', [AdminController::class, 'unsuspendUser'])->name('admin.user.unban');
-    });
+        Route::post('/suspend/{id}', [AdminController::class, 'suspendUser'])->name('admin.user.suspend')->middleware(Admin::class);
+        Route::post('/ban/{id}', [AdminController::class, 'banUser'])->name('admin.user.ban')->middleware(Admin::class);
+        Route::post('/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete')->middleware(Admin::class);
+        Route::post('/unsuspend/{id}', [AdminController::class, 'unsuspendUser'])->name('admin.user.unsuspend')->middleware(Admin::class);
+        Route::post('/unban/{id}', [AdminController::class, 'unsuspendUser'])->name('admin.user.unban')->middleware(Admin::class);
+    })->middleware(Admin::class);
 
     Route::prefix('sellers')->group(function () {
         // sellers routes
-        Route::get('/', [AdminController::class, 'goToAllSellers'])->name('admin.sellers');
+        Route::get('/', [AdminController::class, 'goToPendingSellers'])->name('admin.sellers.pending')->middleware(Admin::class);
+        Route::get('/all', [AdminController::class, 'goToAllSellers'])->name('admin.sellers.all')->middleware(Admin::class);
+        Route::get('/suspended', [AdminController::class, 'goToSuspendedSellers'])->name('admin.sellers.suspended')->middleware(Admin::class);
+        Route::get('/banned', [AdminController::class, 'goToBannedSellers'])->name('admin.sellers.banned')->middleware(Admin::class);
+        Route::get('/disapproved', [AdminController::class, 'goToDisapprovedSellers'])->name('admin.sellers.disapproved')->middleware(Admin::class);
         // make
+
+        Route::post('/approve/{id}', [AdminController::class, 'approveSeller'])->name('admin.seller.approve')->middleware(Admin::class);
+        Route::post('/disapprove/{id}', [AdminController::class, 'disapproveSeller'])->name('admin.seller.disapprove')->middleware(Admin::class);
+        Route::post('/suspend/{id}', [AdminController::class, 'suspendSeller'])->name('admin.seller.suspend')->middleware(Admin::class);
+        Route::post('/ban/{id}', [AdminController::class, 'banSeller'])->name('admin.seller.ban')->middleware(Admin::class);
+
+        Route::post('/unsuspend/{id}', [AdminController::class, 'approveSeller'])->name('admin.seller.unsuspend')->middleware(Admin::class);
+        Route::post('/unban/{id}', [AdminController::class, 'approveSeller'])->name('admin.seller.unban')->middleware(Admin::class);
+
+        Route::post('/delete/{id}', [AdminController::class, 'deleteSeller'])->name('admin.seller.delete')->middleware(Admin::class);
+    })->middleware(Admin::class);
+
+    Route::get('/login', [AdminController::class, 'goToLogin'])->name('admin.login.form');
+    route::post('/login/admin', [AdminController::class, 'login'])->name('admin.login');
+
+    Route::get('/logout', [AdminController::class, 'logout'])->name('admin.logout')->middleware(Admin::class);
+
+    // create pdf
+    Route::get('/generate-pdf', [PDFController::class, 'generatePDF'])->middleware(Admin::class);
+
+   
+    Route::prefix('get_pdf')->group(function () {
+        Route::prefix('orders')->group(function () {
+            Route::get('/placed', [PDFController::class, 'getPlacedOrdersPDF'])->name('admin.order.pdf.placed')->middleware(Admin::class);
+            Route::get('/awaiting', [PDFController::class, 'getAwaitingOrdersPDF'])->name('admin.order.pdf.awaiting')->middleware(Admin::class);
+            Route::get('/shipped', [PDFController::class, 'getShippedOrdersPDF'])->name('admin.order.pdf.shipped')->middleware(Admin::class);
+            Route::get('/delivered', [PDFController::class, 'getDeliveredOrdersPDF'])->name('admin.order.pdf.delivered')->middleware(Admin::class);
+            Route::get('/cancelled', [PDFController::class, 'getCancelledOrdersPDF'])->name('admin.order.pdf.cancelled')->middleware(Admin::class);
+            Route::get('/return', [PDFController::class, 'getReturnOrdersPDF'])->name('admin.order.pdf.return')->middleware(Admin::class);
+        });
+        
+        Route::prefix('products')->group(function () {
+            Route::get('/pending', [PDFController::class, 'getPendingProductsPDF'])->name('admin.product.pdf.pending')->middleware(Admin::class);
+            Route::get('/all', [PDFController::class, 'getAllProductsPDF'])->name('admin.product.pdf.all')->middleware(Admin::class);
+            Route::get('/hidden', [PDFController::class, 'getHiddenProductsPDF'])->name('admin.product.pdf.hidden')->middleware(Admin::class);
+            Route::get('/disapproved', [PDFController::class, 'getDisapprovedProductsPDF'])->name('admin.product.pdf.disapproved')->middleware(Admin::class);
+        });
+
+        Route::prefix('buyesrs')->group(function () {
+            Route::get('/all', [PDFController::class, 'getAllBuyersPDF'])->name('admin.buyer.pdf.all')->middleware(Admin::class);
+            Route::get('/suspended', [PDFController::class, 'getSuspendedBuyersPDF'])->name('admin.buyer.pdf.suspended')->middleware(Admin::class);
+            Route::get('/banned', [PDFController::class, 'getBannedBuyersPDF'])->name('admin.buyer.pdf.banned')->middleware(Admin::class);
+        });
+
+        Route::prefix('sellers')->group(function () {
+            Route::get('/pending', [PDFController::class, 'getPendingSellersPDF'])->name('admin.seller.pdf.pending')->middleware(Admin::class);
+            Route::get('/all', [PDFController::class, 'getAllSellersPDF'])->name('admin.seller.pdf.all')->middleware(Admin::class);
+            Route::get('/suspended', [PDFController::class, 'getSuspendedSellersPDF'])->name('admin.seller.pdf.suspended')->middleware(Admin::class);
+            Route::get('/banned', [PDFController::class, 'getBannedSellersPDF'])->name('admin.seller.pdf.banned')->middleware(Admin::class);
+            Route::get('/disapproved', [PDFController::class, 'getDisapprovedSellersPDF'])->name('admin.seller.pdf.disapproved')->middleware(Admin::class);
+        });
+
     });
-});
+
+
+})->middleware(Admin::class);
 
 Route::get('/cart', [HomeController::class, 'goToCart'])->name('cart')->middleware(User::class)->middleware(User::class);
 Route::get('/wishlist', [HomeController::class, 'goToWishlist'])->name('wishlist')->middleware(User::class)->middleware(User::class);

@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
     <title>Login | Seller</title>
+    <!-- tailwind css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- tailwind css -->
+    @vite('resources/css/app.css')
+
+    <!-- font awesome icons -->
+    <link rel="stylesheet" href="{{asset('/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 </head>
 
 <body>
@@ -48,7 +55,7 @@
 
                         <div class="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
 
-                            <form action="{{route('seller.login')}}" method="POST" class="space-y-6">
+                            <form action="{{route('admin.login')}}" method="POST" class="space-y-6">
                                 @csrf
                                 <div>
                                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900 ">Email address</label>

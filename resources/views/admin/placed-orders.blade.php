@@ -41,11 +41,10 @@
                 </ul>
 
                 <div class="flex justify-end gap-5 mr-10">
-                    <div>
-                        <input type="text" class="rounded-lg bg-white py-2 border-2 px-3 w-full">
+                    <div class="mb-3">
+                        <a href="{{route('admin.order.pdf.placed')}}" class="py-3 px-10 bg-emerald-300 rounded-lg text-lg text-center cursor-pointer hover:bg-emerald-400 font-bold">Print</a>
                     </div>
                 </div>
-
 
             </div>
 
@@ -161,18 +160,10 @@
                                 </div>
                             </div>
                         </section>
-
                         @endforeach
-
-
-
-
                     </tbody>
                 </table>
 
-                <div class="flex justify-end">
-                    <button onclick="orderPrint('placed-orders-table');" class="mr-10 py-2 px-3 bg-slate-100 rounded-lg mt-5 text-lg font-bold border-2 border-emerald-600">Print</button>
-                </div>
             </div>
         </div>
     </div>

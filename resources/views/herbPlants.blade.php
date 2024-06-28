@@ -38,7 +38,6 @@
                             <div>Herbal plants offer a range of benefits, from enhancing the flavor of your dishes to providing natural remedies and promoting overall well-being.</div>
                         </div>
 
-
                         <div class="bg-slate-100 p-5">
                             <div class="text-center text-emerald-500 text-xl mb-3">Culinary Uses</div>
                             <div> Enhance your cooking with fresh, flavorful herbs right from your garden or windowsill.</div>

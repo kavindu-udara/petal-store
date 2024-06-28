@@ -42,11 +42,14 @@
                     </li>
                 </ul>
 
+
+                @if ($orders->count() != 0)
                 <div class="flex justify-end gap-5 mr-10">
-                    <div>
-                        <input type="text" class="rounded-lg bg-white py-2 border-2 px-3 w-full">
+                    <div class="mb-3">
+                        <a href="{{route('admin.order.pdf.return')}}" class="py-3 px-10 bg-emerald-300 rounded-lg text-lg text-center cursor-pointer hover:bg-emerald-400 font-bold">Print</a>
                     </div>
                 </div>
+                @endif
 
 
             </div>
@@ -54,6 +57,7 @@
 
             <div class="relative overflow-x-auto sm:rounded-lg mx-5 mt-3">
 
+                @if ($orders->count() != 0)
                 <table class="w-full text-lg text-left rtl:text-right text-gray-500" id="placed-orders-table">
                     <thead class="text-lg text-gray-700 uppercase bg-gray-50">
                         <tr>
@@ -207,9 +211,11 @@
                     </tbody>
                 </table>
 
-                <div class="flex justify-end">
-                    <button onclick="orderPrint('placed-orders-table');" class="mr-10 py-2 px-3 bg-slate-100 rounded-lg mt-5 text-lg font-bold border-2 border-emerald-600">Print</button>
-                </div>
+                @else
+
+                <div class="text-center text-xl text-red-600">No Orders Found</div>
+                @endif
+
             </div>
         </div>
     </div>

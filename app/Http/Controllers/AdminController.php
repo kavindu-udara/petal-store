@@ -9,6 +9,7 @@ use App\Models\Seller;
 use App\Models\User;
 use App\Models\UserHasAddress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class AdminController extends Controller
@@ -247,7 +248,89 @@ class AdminController extends Controller
 
     // sellers
     public function goToAllSellers(){
-        
+        $sellers = Seller::where('status', 1)->get();
+        return view('admin.all-sellers', compact('sellers'));
+    }
+
+    public function goToPendingSellers(){
+
+        $sellers = Seller::where('status', 0)->get();
+        return view('admin.pending-sellers', compact('sellers'));
+    }
+
+    public function approveSeller($id){
+
+        Seller::where('id', $id)->update([
+            'status' => 1,
+        ]);
+        return redirect()->back()->with('success', 'Success');
+    }
+
+    public function disapproveSeller($id){
+        Seller::where('id', $id)->update([
+            'status' => 4,
+        ]);
+        return redirect()->back()->with('success', 'Success');
+    }
+
+    public function goToSuspendedSellers(){
+        $sellers = Seller::where('status', 2)->get();
+        return view('admin.suspended-sellers', compact('sellers'));
+    }
+
+    public function goToBannedSellers(){
+        $sellers = Seller::where('status', 3)->get();
+        return view('admin.banned-sellers', compact('sellers'));
+    }
+
+    public function goToDisapprovedSellers(){   
+        $sellers = Seller::where('status', 4)->get();
+        return view('admin.disapproved-sellers', compact('sellers'));
+    }
+
+    public function suspendSeller($id){
+        Seller::where('id', $id)->update([
+            'status' => 2,
+        ]);
+        return redirect()->back()->with('success', 'Success');
+    }
+    public function banSeller($id){
+        Seller::where('id', $id)->update([
+            'status' => 3,
+        ]);
+        return redirect()->back()->with('success', 'Success');
+    }
+    public function deleteSeller($id){
+        Seller::where('id', $id)->update([
+            'status' => 5,
+        ]);
+        return redirect()->back()->with('success', 'Success');
+    }
+
+    public function logout(){
+        Auth::guard('admin')->logout();
+        return redirect()->route('admin.login.form')->with('success', 'Logout Success');
+    }
+
+    public function goToLogin(){
+        return view('admin.login');
+    }
+
+    public function login(Request $request){
+
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        $check = $request->all();
+
+        $remember = $request->has('rememberMe');
+
+        if (Auth::guard('admin')->attempt(['email' => $check['email'], 'password' => $check['password']], $remember)) {
+            return redirect()->route('admin.dashboard')->with('success', 'Login Success');
+        } else {
+            return back()->with('error', 'Invalid Email or Password');
+        }
     }
 
 }

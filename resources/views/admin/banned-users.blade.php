@@ -23,17 +23,20 @@
                         </a>
                     </li>
                     <li class="me-2">
-                        <a href="{{route('admin.users.banned')}}"  class="inline-block p-4 text-emerald-600 border-b-2 border-emerald-600 rounded-t-lg active">
+                        <a href="{{route('admin.users.banned')}}" class="inline-block p-4 text-emerald-600 border-b-2 border-emerald-600 rounded-t-lg active">
                             Banned Buyers
                         </a>
                     </li>
                 </ul>
 
+                
+                @if ($users->count() != 0)
                 <div class="flex justify-end gap-5 mr-10">
-                    <div>
-                        <input type="text" class="rounded-lg bg-white py-2 border-2 px-3 w-full">
+                    <div class="mb-3">
+                        <a href="{{route('admin.buyer.pdf.all')}}" class="py-3 px-10 bg-emerald-300 rounded-lg text-lg text-center cursor-pointer hover:bg-emerald-400 font-bold">Print</a>
                     </div>
                 </div>
+                @endif
 
 
             </div>
@@ -41,6 +44,7 @@
 
             <div class="relative overflow-x-auto sm:rounded-lg mx-5 mt-3">
 
+            @if ($users->count() != 0)
                 <table class="w-full text-lg text-left rtl:text-right text-gray-500" id="buyer-all-table">
                     <thead class="text-lg text-gray-700 uppercase bg-gray-50 ">
                         <tr>
@@ -64,9 +68,9 @@
 
                     <tbody>
 
-                    @foreach ($users as $user)
+                        @foreach ($users as $user)
 
-                    <tr class="bg-white border-b hover:bg-gray-50 ">
+                        <tr class="bg-white border-b hover:bg-gray-50 ">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
                                 {{$user->fname}}
                             </th>
@@ -85,7 +89,7 @@
                             </td>
                             <td class="px-6 py-4">
 
-                            <button onclick="showandHidePopup('user-unban-pop-up-{{$user->id}}');" class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-200 hover:text-white">
+                                <button onclick="showandHidePopup('user-unban-pop-up-{{$user->id}}');" class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-200 hover:text-white">
                                     Unban
                                 </button>
 
@@ -101,7 +105,7 @@
                             </td>
                         </tr>
 
-                        
+
                         <!-- user delete popup -->
                         <section id="user-delete-pop-up-{{$user->id}}" class="fixed top-0 left-0 w-full h-full opacity-100  backdrop-blur-sm justify-center items-center rounded hidden">
                             <div class="h-screen flex items-center justify-center">
@@ -155,16 +159,20 @@
                                 </div>
                             </div>
                         </section>
-                    
-                    @endforeach
 
-                        
+                        @endforeach
+
+
                     </tbody>
                 </table>
 
-                <div class="flex justify-end">
-                    <button onclick="buyerPrint('buyer-all-table');" class="mr-10 py-2 px-3 bg-slate-100 rounded-lg mt-5 text-lg font-bold border-2 border-emerald-600">Print</button>
-                </div>
+                @else
+
+                <div class="text-center text-xl">No banned buyers</div>
+
+            @endif
+
+
 
             </div>
         </div>
