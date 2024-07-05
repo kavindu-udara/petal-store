@@ -319,9 +319,20 @@ class HomeController extends Controller
             }
         }
 
+        
+        $cartCount = null;
+        if (Auth::user()) {
+            $cartCount = Cart::where('user_id', Auth::user()->id)->count();
+        }
+
+        $wishlistCount = null;
+        if (Auth::user()) {
+            $wishlistCount = Wishlist::where('user_id', Auth::user()->id)->count();
+        }
+
         $products = $productsQuery->get();
         $allProductImages = ProductsImage::whereIn('product_id', $products->pluck('id'))->get();
         $categories = Category::all();
-        return view('advancedSearch', compact('categories', 'products', 'allProductImages'));
+        return view('advancedSearch', compact('categories', 'products', 'allProductImages', 'cartCount', 'wishlistCount'));
     }
 }
