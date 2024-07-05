@@ -75,6 +75,7 @@ class HomeController extends Controller
 
     public function goToShop()
     {
+
         $cartCount = null;
         if (Auth::user()) {
             $cartCount = Cart::where('user_id', Auth::user()->id)->count();
@@ -84,9 +85,11 @@ class HomeController extends Controller
         if (Auth::user()) {
             $wishlistCount = Wishlist::where('user_id', Auth::user()->id)->count();
         }
+
         $products = Product::paginate(10);
         $dealsProducts = Product::orderBy('price', 'ASC')->limit(6)->get();
         $allProductImages = ProductsImage::all();
+
         return view('shop', compact('products', 'dealsProducts', 'allProductImages', 'cartCount', 'wishlistCount'));
     }
     public function goToContact()
@@ -278,15 +281,9 @@ class HomeController extends Controller
     {
         $data = $request->query();
 
-        // dd($data);
-        // http://127.0.0.1:8000/home/advanced-search?_token=D49JpaSiin6B0KUSiKhlKXcPeLWKBn8s6LQkPqVZ&
-        // text=665fbaae74005
-        // &category=1
-        // &dateFrom=2024-07-25&dateTo=2024-07-25
-        // &priceFrom=456&priceTo=456
-        // &sort=2
-
         $productsQuery = Product::query();
+
+        $productsQuery->where('status', 1);
 
         if (isset($data['text'])) {
             $productsQuery->where('title', 'like', '%' . $data['text'] . '%');

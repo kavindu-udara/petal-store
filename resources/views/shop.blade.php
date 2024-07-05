@@ -127,20 +127,22 @@
             </div>
         </div>
 
-
-
         <div class="md:basis-1/2 text-center">
-            <div class="flex flex-row">
-                <div class="basis-3/4">
-                    <input type="text" placeholder="search" class='bg-slate-100 px-5 py-3 w-full' id="shop-product-search">
+            <form action="{{route('home.search.advanced')}}" method="get">
+                @csrf
+                <div class="flex flex-row">
+                    <div class="basis-3/4">
+                        <input type="text" name="text" placeholder="search" class='bg-slate-100 px-5 py-3 w-full' id="shop-product-search">
+                    </div>
+                    <div class="basis-1/4 text-left my-auto ml-5">
+                        <button type="submit" class='bg-slate-100 py-3 px-3' id="shop-product-search-btn">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="basis-1/4 text-left my-auto ml-5">
-                    <button class='bg-slate-100 py-3 px-3' id="shop-product-search-btn" onclick="basicSearch();">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                    </button>
-                </div>
-            </div>
+            </form>
         </div>
+
         <div class="md:basis-1/4 text-right ">
             <select name="" class='bg-slate-100 px-5 py-3 rounded mr-3' id="shop-product-sort-select">
                 <option value="0">best match</option>
@@ -165,23 +167,23 @@
 
                     <a href="{{route('home.single.product', $product->id)}}">
 
-                    @php
-                    $showImage=true
-                    @endphp
+                        @php
+                        $showImage=true
+                        @endphp
 
-                    @foreach ($allProductImages as $allProductImage)
-                    
-                    @if ($allProductImage->product_id == $product->id && $showImage)
-                    
-                    <img src="{{asset('products/'.$allProductImage->name)}}" class="cursor-pointer" alt="yt">
+                        @foreach ($allProductImages as $allProductImage)
 
-                    @php
-                    $showImage=false
-                    @endphp
+                        @if ($allProductImage->product_id == $product->id && $showImage)
 
-                    @endif
+                        <img src="{{asset('products/'.$allProductImage->name)}}" class="cursor-pointer" alt="yt">
 
-                    @endforeach
+                        @php
+                        $showImage=false
+                        @endphp
+
+                        @endif
+
+                        @endforeach
 
                     </a>
                     <div class="text-center text-yellow-300">
@@ -207,9 +209,9 @@
         </div>
 
         <!-- pagination -->
-         <div>
+        <div>
             {{$products->links()}}
-         </div>
+        </div>
 
     </div>
 

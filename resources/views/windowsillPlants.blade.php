@@ -76,21 +76,22 @@
         <div class="basis-1/4"></div>
     </div>
 
+   
     <div class="flex flex-row mb-5">
         <div class="basis-1/4"></div>
         <div class="basis-1/2 text-center">
+        <form action="{{route('home.search.advanced')}}" method="get">
             <div class="flex flex-row">
                 <div class="basis-3/4">
-                    <input type="text" placeholder="search" class='bg-slate-100 px-5 py-3 w-full' id="category-product-search">
+                    <input type="text" name="text" placeholder="search" class='bg-slate-100 px-5 py-3 w-full' id="category-product-search">
                 </div>
                 <div class="basis-1/4 text-left my-auto ml-5">
-                    <button class='bg-slate-100 py-3 px-3' id="shop-product-search-btn" onclick="catBasicSearch(1);">
+                    <button type="submit" class='bg-slate-100 py-3 px-3' id="shop-product-search-btn" onclick="catBasicSearch(1);">
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
-
-
+            </form>
         </div>
         <div class="basis-1/4 text-right">
             <select name="" class='bg-slate-100 px-5 py-3 rounded mr-3' id="category-product-sort-select">

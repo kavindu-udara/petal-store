@@ -37,25 +37,44 @@
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">Date From</div>
-                        <input type="date" value="{{$_GET['dateFrom']}}" name="dateFrom" class="bg-white w-full py-3 px-3" id="advanced-search-date-from">
+                        <input type="date" 
+                        value="
+                        @if (isset($_GET['dateFrom']))
+                            {{$_GET['dateFrom']}}
+                        @endif
+                        " name="dateFrom" class="bg-white w-full py-3 px-3" id="advanced-search-date-from">
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">Date To</div>
-                        <input value="{{$_GET['dateTo']}}" type="date" name="dateTo" class="bg-white w-full py-3 px-3" id="advanced-search-date-to">
+                        <input 
+                        value="
+                        @if (isset($_GET['dateTo']))
+                            {{$_GET['dateTo']}}
+                        @endif
+                        " type="date" name="dateTo" class="bg-white w-full py-3 px-3" id="advanced-search-date-to">
                     </div>
                 </div>
 
                 <div class="md:flex md:flex-row gap-4 mt-5">
                     <div class="md:basis-1/3">
                         <div class="uppercase">Price From</div>
-                        <input value="{{$_GET['priceFrom']}}" name="priceFrom" type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-from">
+                        <input  
+                        value="
+                        @if (isset($_GET['priceFrom']))
+                            {{$_GET['priceFrom']}}
+                        @endif
+                        "  name="priceFrom" type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-from">
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">Price To</div>
-                        <input name="priceTo" value="{{$_GET['priceTo']}}" type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-to">
+                        <input name="priceTo" 
+                        value="
+                        @if (isset($_GET['priceTo']))
+                            {{$_GET['priceTo']}}
+                        @endif
+                        " type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-to">
                     </div>
                     <div class="md:basis-1/3">
-
                         <div class="uppercase">sort by</div>
                         <select name="sort" class='bg-white w-full py-3 px-3' id="category-product-sort-select">
                             <option value="0">best match</option>
@@ -63,7 +82,6 @@
                             <option value="2">price low to high</option>
                             <option value="3">price high to low</option>
                         </select>
-
                     </div>
                 </div>
 
