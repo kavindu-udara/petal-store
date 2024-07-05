@@ -19,6 +19,15 @@ class User
         if(!Auth::guard('web')->check()){
             return redirect()->route('login')->with('error', 'Please Login First !');
         }
+        if(Auth::guard('web')->user()->id){
+            if(Auth::guard('web')->user()->status == 1){
+                return redirect()->route('user.suspend');
+            }else if(Auth::guard('web')->user()->status == 2){
+                return redirect()->route('user.ban');
+            }else{
+                return $next($request);
+            }
+        }
         return $next($request);
     }
 }

@@ -220,6 +220,13 @@ class UserController extends Controller
         }
 
         return view('invoice', compact('histories', 'orderId', 'allProducts', 'delivery'));
+    }
 
+    
+    public function goToUserBanned(){
+        return view("user.bannedAccount");
+    }
+    public function goToUserSuspended(){
+        return view("user.suspendedAccount");
     }
 }

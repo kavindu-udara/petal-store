@@ -69,7 +69,6 @@ Route::prefix('seller')->group(function () {
 
         Route::post('/await/{id}', [SellerController::class, 'awaitOrder'])->name('seller.order.await');
         Route::post('/ship/{id}', [SellerController::class, 'shipOrder'])->name('seller.order.ship');
-
     });
 
 });
@@ -104,6 +103,9 @@ Route::prefix('user')->group(function () {
         Route::post('/pay/{value}', [PaymentController::class, 'stripePay'])->name('user.stripe.pay')->middleware(User::class);
     });
     Route::get('/invoice/{orderId}', [UserController::class, 'goToInvoice'])->name('user.invoice')->middleware(User::class);
+
+    Route::get('/suspended', [UserController::class, 'goToUserSuspended'])->name('user.suspend');
+    Route::get('/ban', [UserController::class, 'goToUserBanned'])->name('user.ban');
 });
 
 Route::prefix('admin')->group(function () {
