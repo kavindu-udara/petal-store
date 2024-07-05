@@ -131,10 +131,6 @@
                         </tbody>
                     </table>
 
-                    <div class="flex justify-end">
-                        <button onclick="sellerPrint('seller-pending-products-table');" class="mr-10 py-2 px-3 bg-slate-100 mt-5 text-lg font-bold border-2 border-emerald-600">Print</button>
-                    </div>
-
                 </div>
 
             </div>
