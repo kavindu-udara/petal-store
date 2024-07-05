@@ -34,6 +34,11 @@ Route::prefix('seller')->group(function () {
 
     Route::post('/register/seller', [SellerController::class, 'register'])->name('seller.register');
 
+    Route::get('/pending', [SellerController::class, 'goToPendigPage'])->name('seller.pending');
+    Route::get('/suspend', [SellerController::class, 'goToSuspendPage'])->name('seller.suspend');
+    Route::get('/ban', [SellerController::class, 'goToBanPage'])->name('seller.ban');
+    Route::get('/disapproved', [SellerController::class, 'goToDisapprovedPage'])->name('seller.disapproved');
+
     // products route
     Route::get('/new', [SellerController::class, 'goToNewProduct'])->name('seller.new.form')->middleware(Seller::class);
 

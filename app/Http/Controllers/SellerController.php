@@ -610,4 +610,17 @@ class SellerController extends Controller
 
         return redirect()->back()->with('success', 'Success');
     }
+
+    public function goToPendigPage(){
+        return view("seller.pendingAccount");
+    }
+    public function goToSuspendPage(){
+        return view("seller.suspendedAccount");
+    }
+    public function goToBanPage(){
+        return view("seller.bannedAccount");
+    }
+    public function goToDisapprovedPage(){
+        return view("seller.diapprovedAccount");
+    }
 }

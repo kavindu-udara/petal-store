@@ -19,6 +19,19 @@ class Seller
         if(!Auth::guard('seller')->check()){
             return redirect()->route('seller.login.form')->with('error', 'Please Login First !');
         }
+        if(Auth::guard('seller')->user()->id){
+            if(Auth::guard('seller')->user()->status == 0){
+                return redirect()->route('seller.pending');
+            }else if(Auth::guard('seller')->user()->status == 2){
+                return redirect()->route('seller.suspend');
+            }else if(Auth::guard('seller')->user()->status == 3){
+                return redirect()->route('seller.ban');
+            }else if(Auth::guard('seller')->user()->status == 4){
+                return redirect()->route('seller.disapproved');
+            }else{
+                return $next($request);
+            }
+        }
         return $next($request);
     }
 }
