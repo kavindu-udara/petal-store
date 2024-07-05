@@ -8,6 +8,7 @@ use App\Models\ProductsImage;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Wishlist;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\DeliveryFee;
 use App\Models\District;
@@ -271,5 +272,59 @@ class HomeController extends Controller
         $userAddress = UserHasAddress::where('user_id', $userId)->first();
 
         return view("user.profile", compact('profile', 'cartCount', 'wishlistCount', 'cities', 'provinces', 'districts', 'profileImage', 'userAddress'));
+    }
+
+    public function goToAdvancedSearch(Request $request)
+    {
+        $data = $request->query();
+
+        // dd($data);
+        // http://127.0.0.1:8000/home/advanced-search?_token=D49JpaSiin6B0KUSiKhlKXcPeLWKBn8s6LQkPqVZ&
+        // text=665fbaae74005
+        // &category=1
+        // &dateFrom=2024-07-25&dateTo=2024-07-25
+        // &priceFrom=456&priceTo=456
+        // &sort=2
+
+        $productsQuery = Product::query();
+
+        if (isset($data['text'])) {
+            $productsQuery->where('title', 'like', '%' . $data['text'] . '%');
+        }
+
+        if (isset($data['category'])) {
+            $productsQuery->where('category_id', $data['category']);
+        }
+
+        if (isset($data['dateFrom'])) {
+            $productsQuery->where('created_at', '>=', $data['dateFrom']);
+        }
+
+        if (isset($data['dateTo'])) {
+            $productsQuery->where('created_at', '<=', $data['dateTo']);
+        }
+
+        if (isset($data['priceFrom'])) {
+            $productsQuery->where('price', '>=', $data['priceFrom']);
+        }
+
+        if (isset($data['priceTo'])) {
+            $productsQuery->where('price', '<=', $data['priceTo']);
+        }
+
+        if (isset($data['sort'])) {
+            if ($data['sort'] == 1) {
+                $productsQuery->orderBy('created_at', 'asc');
+            } elseif ($data['sort'] == 2) {
+                $productsQuery->orderBy('price', 'asc');
+            } elseif ($data['sort'] == 3) {
+                $productsQuery->orderBy('price', 'desc');
+            }
+        }
+
+        $products = $productsQuery->get();
+        $allProductImages = ProductsImage::whereIn('product_id', $products->pluck('id'))->get();
+        $categories = Category::all();
+        return view('advancedSearch', compact('categories', 'products', 'allProductImages'));
     }
 }

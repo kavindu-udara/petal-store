@@ -116,7 +116,7 @@
         <div class="md:basis-1/4">
             <div class="md:grid grid-cols-3 md:gap-4">
                 <div>
-                    <a href="./advancedSearch.php">
+                    <a href="{{route('home.search.advanced')}}">
                         <div class="bg-slate-100 px-5 py-3 w-50 rounded mr-3 ml-3 text-center cursor-pointer hover:bg-slate-200">
                             <i class="fa fa-filter" aria-hidden="true"></i> Filter
                         </div>

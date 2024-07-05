@@ -79,6 +79,7 @@ Route::prefix('home')->group(function () {
     Route::get('plant/windowsill', [HomeController::class, 'goToWindowsillPlants'])->name('home.products.windowsill');
     Route::get('plant/stands', [HomeController::class, 'goToPlantStands'])->name('home.products.stands');
     Route::get('plant/terrariums', [HomeController::class, 'goToTerrariumsPlants'])->name('home.products.terrariums');
+    Route::get('/advanced-search', [HomeController::class, 'goToAdvancedSearch'])->name('home.search.advanced');
 });
 
 Route::prefix('user')->group(function () {
