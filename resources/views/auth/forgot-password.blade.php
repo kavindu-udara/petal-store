@@ -17,9 +17,9 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Email Password Reset Link') }}
-            </x-primary-button>
+            <button class="ms-3 bg-emerald-600 hover:bg-emerald-800 rounded-lg px-3 py-2 text-white font-semibold">
+            {{ __('Email Password Reset Link') }}
+            </button>
         </div>
     </form>
 </x-guest-layout>

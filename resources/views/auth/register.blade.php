@@ -1,4 +1,11 @@
 <x-guest-layout>
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm mb-5">
+        <div class="text-center text-3xl font-bold text-emerald-800 mb-3">
+            <div class="cursor-pointer">Petal Hut</div>
+        </div>
+    </div>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
@@ -60,9 +67,9 @@
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <button class="ms-3 bg-emerald-600 hover:bg-emerald-800 rounded-lg px-3 py-2 text-white">
                 {{ __('Register') }}
-            </x-primary-button>
+            </button>
         </div>
     </form>
 </x-guest-layout>

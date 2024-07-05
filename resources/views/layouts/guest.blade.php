@@ -6,6 +6,10 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+    <!-- tailwind css -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- tailwind css -->
+    @vite('resources/css/app.css')
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

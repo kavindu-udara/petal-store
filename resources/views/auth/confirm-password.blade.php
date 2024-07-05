@@ -19,9 +19,9 @@
         </div>
 
         <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
+            <button class="ms-3 bg-emerald-600 hover:bg-emerald-800 rounded-lg px-3 py-2 text-white font-semibold">
+            {{ __('Confirm') }}
+            </button>
         </div>
     </form>
 </x-guest-layout>

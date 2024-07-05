@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm mb-5">
+        <div class="text-center text-3xl font-bold text-emerald-800 mb-3">
+            <div class="cursor-pointer">Petal Hut</div>
+        </div>
+    </div>
     <form method="POST" action="{{ route('password.store') }}">
         @csrf
 
@@ -31,9 +36,9 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
+            <button class="ms-3 bg-emerald-600 hover:bg-emerald-800 rounded-lg px-3 py-2 text-white font-semibold">
+            {{ __('Reset Password') }}
+            </button>
         </div>
     </form>
 </x-guest-layout>

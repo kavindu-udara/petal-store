@@ -21,8 +21,6 @@
 
 <body>
 
-
-
     <nav class="bg-white w-full z-20 top-0 start-0 border-b border-gray-200">
 
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -85,7 +83,10 @@
                         </li>
                     </ul>
                     <div class="py-2">
-                        <a href="./user/logout.php" class="block px-4 py-2 text-base text-gray-700 hover:bg-gray-100 ">Sign out</a>
+                        <form action="{{route('logout')}}" method="post">
+                            @csrf
+                        <button class="block px-4 py-2 text-base text-gray-700 hover:bg-gray-100 w-full text-left">Sign out</button>
+                        </form>
                     </div>
                 </div>
 
