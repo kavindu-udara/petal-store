@@ -92,9 +92,9 @@
                             </td>
                             <td class="px-6 py-4">
 
-                                <button class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-200 hover:text-white">
+                                <a href="{{route('admin.seller.edit',$seller->id)}}" class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-200 hover:text-white mr-3">
                                     Edit
-                                </button>
+                                </a>
 
                                 <button onclick="showandHidePopup('seller-suspend-pop-up-{{$seller->id}}');" class="p-3 bg-red-200 rounded-xl  cursor-pointer hover:text-white hover:bg-red-300">
                                     Suspend

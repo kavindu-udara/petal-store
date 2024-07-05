@@ -56,6 +56,17 @@ Route::prefix('seller')->group(function () {
         Route::post('/hide/{id}', [SellerController::class, 'hideProduct'])->name('seller.product.hide');
         Route::post('/unhide/{id}', [SellerController::class, 'unhideProduct'])->name('seller.product.unhide');
     });
+
+    
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [SellerController::class, 'goToNewOrders'])->name('seller.orders.new')->middleware(Seller::class);
+        Route::get('/awaiting', [SellerController::class, 'goToAwaitingOrders'])->name('seller.orders.awaiting')->middleware(Seller::class);
+
+        Route::post('/await/{id}', [SellerController::class, 'awaitOrder'])->name('seller.order.await');
+        Route::post('/ship/{id}', [SellerController::class, 'shipOrder'])->name('seller.order.ship');
+
+    });
+
 });
 
 Route::prefix('home')->group(function () {
@@ -141,6 +152,11 @@ Route::prefix('admin')->group(function () {
         Route::post('/delete/{id}', [AdminController::class, 'deleteUser'])->name('admin.user.delete')->middleware(Admin::class);
         Route::post('/unsuspend/{id}', [AdminController::class, 'unsuspendUser'])->name('admin.user.unsuspend')->middleware(Admin::class);
         Route::post('/unban/{id}', [AdminController::class, 'unsuspendUser'])->name('admin.user.unban')->middleware(Admin::class);
+
+        // edit buyer
+        Route::get('/edit/{id}', [AdminController::class, 'goToEditUser'])->name('admin.user.edit')->middleware(Admin::class);
+        Route::post('/update/{id}', [AdminController::class, 'updateUser'])->name('admin.user.update')->middleware(Admin::class);
+
     })->middleware(Admin::class);
 
     Route::prefix('sellers')->group(function () {
@@ -161,6 +177,12 @@ Route::prefix('admin')->group(function () {
         Route::post('/unban/{id}', [AdminController::class, 'approveSeller'])->name('admin.seller.unban')->middleware(Admin::class);
 
         Route::post('/delete/{id}', [AdminController::class, 'deleteSeller'])->name('admin.seller.delete')->middleware(Admin::class);
+
+        // edit seller
+        
+        Route::get('/edit/{id}', [AdminController::class, 'goToEditSeller'])->name('admin.seller.edit')->middleware(Admin::class);
+        Route::post('/update/{id}', [AdminController::class, 'updateSeller'])->name('admin.seller.update')->middleware(Admin::class);
+
     })->middleware(Admin::class);
 
     Route::get('/login', [AdminController::class, 'goToLogin'])->name('admin.login.form');

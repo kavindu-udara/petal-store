@@ -90,9 +90,9 @@
                             </td>
                             <td class="px-6 py-4">
 
-                                <button class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-200 hover:text-white">
+                                <a href="{{route('admin.user.edit', $user->id)}}" class="p-3 bg-emerald-200 rounded-xl cursor-pointer hover:bg-emerald-200 hover:text-white mr-3">
                                     Edit
-                                </button>
+                                </a>
 
                                 <button onclick="showandHidePopup('user-suspend-pop-up-{{$user->id}}');" class="p-3 bg-red-200 rounded-xl  cursor-pointer hover:text-white hover:bg-red-300">
                                     Suspend
@@ -165,7 +165,6 @@
                         </section>
 
                         @endforeach
-
 
                     </tbody>
                 </table>

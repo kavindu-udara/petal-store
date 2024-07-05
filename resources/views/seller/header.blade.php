@@ -11,6 +11,7 @@
     <!-- tailwind css -->
     @vite('resources/css/app.css')
 
+    <link rel="icon" href="{{asset('petal-hut-icon.png')}}" type="image/x-icon"> 
     <!-- font awesome icons -->
     <link rel="stylesheet" href="{{asset('/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 
@@ -23,7 +24,7 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="./seller.php" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <div class="text-center text-3xl font-bold text-emerald-800">
-                    <div onclick="gotoHome();" class="cursor-pointer">Petal Hut</div>
+                <div class="cursor-pointer flex">Petal Hut&nbsp;<div class="text-slate-400">&nbsp;Seller</div></div>
                 </div>
             </a>
 
@@ -63,7 +64,7 @@
                         <a href="{{route('seller.dashboard')}}" class="block py-2 px-3 text-gray-900 bg-emerald-700 rounded md:bg-transparent md:hover:text-emerald-700 md:p-0 " aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="./orders.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-emerald-700 md:p-0 ">Orders</a>
+                        <a href="{{route('seller.orders.new')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-emerald-700 md:p-0 ">Orders</a>
                     </li>
                     <li>
                         <a href="{{route('seller.products.pending.list')}}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-emerald-700 md:p-0 ">products</a>

@@ -10,8 +10,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- tailwind css -->
     @vite('resources/css/app.css')
-    <!-- 
-    <link rel="icon" href="../../assets/icons/petal-hut-icon.png" type="image/x-icon"> -->
+
+    <link rel="icon" href="{{asset('petal-hut-icon.png')}}" type="image/x-icon"> 
 
 
     <!-- font awesome icons -->
@@ -76,7 +76,7 @@
                     <div class="px-4 py-3 text-base text-gray-900 ">
                         <div>Kavindu Udara</div>
                     </div>
-                    <ul class="py-2 text-base text-gray-700 " aria-labelledby="dropdownInformationButton">
+                    <ul class="py-2 text-base text-gray-700" aria-labelledby="dropdownInformationButton">
                         <li>
                             <a href="./user/history.php" class="block px-4 py-2 hover:bg-gray-100 ">History</a>
                         </li>

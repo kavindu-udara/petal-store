@@ -1,6 +1,5 @@
 @include('admin.header')
 
-
 <section>
     <div class="py-3 rounded-lg bg-emerald-50 mx-5 mt-5">
         <div class="ml-5 mt-10 text-3xl mb-5 font-bold">Sellers</div>

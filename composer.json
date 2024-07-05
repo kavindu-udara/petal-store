@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^2.2",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
+        "laraveldaily/laravel-charts": "^0.2.3",
         "stripe/stripe-php": "^14.10"
     },
     "require-dev": {

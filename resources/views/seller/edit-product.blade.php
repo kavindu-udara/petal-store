@@ -80,16 +80,15 @@
                             @foreach ($productImages as $productImage)
 
                             <div>
-                                <label for="{{$productImage->id}}" onclick="g">
+                                <label for='img-{{$productImage->id}}' onclick="selectImage('img-{{$productImage->id}}')">
                                     <i class="fa fa-plus bg-slate-100 p-3 mb-5 cursor-pointer mt-3 " aria-hidden="true"></i>
                                 </label>
-                                <input type="file" name="image_{{$productImage->id}}" accept="image/*" id="{{$productImage->id}}" class="hidden">
+                                <input type="file" name="image_{{$productImage->id}}" accept="image/*" id='img-{{$productImage->id}}' class="hidden">
 
-                                <img src="{{url('products/'.$productImage->name)}}" id="{{'img-prev-'.$productImage->id}}" alt="{{$productImage->name}}">
+                                <img src="{{url('products/'.$productImage->name)}}" id='img-{{$productImage->id}}-preview' alt="{{$productImage->name}}">
                             </div>
 
                             @endforeach
-
 
                         </div>
                     </div>
@@ -106,3 +105,5 @@
         </div>
     </div>
 </section>
+
+@include('seller.footer')

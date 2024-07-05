@@ -10,6 +10,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- tailwind css -->
     @vite('resources/css/app.css')
+    <link rel="icon" href="{{asset('petal-hut-icon.png')}}" type="image/x-icon"> 
     <!-- font awesome icons -->
     <link rel="stylesheet" href="{{asset('/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 </head>
@@ -20,10 +21,10 @@
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="./seller.php" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <div class="text-center text-3xl font-bold text-emerald-800">
-                    <div class="cursor-pointer">Petal Hut</div>
+                    <div class="cursor-pointer flex">Petal Hut&nbsp;<div class="text-slate-400">&nbsp;Admin</div></div>
                 </div>
             </a>
-            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse bg-red-200 px-3 py-2 font-bold text-gray-600 rounded">
                 <a href="{{route('admin.logout')}}">Logout</a>
             </div>
             <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">

@@ -7,6 +7,7 @@ use App\Models\Gender;
 use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\ProductsImage;
+use App\Models\PurchasedHistory;
 use App\Models\Seller;
 use App\Models\SellerProfileImage;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 
 class SellerController extends Controller
 {
@@ -287,7 +289,34 @@ class SellerController extends Controller
     // goto dashboard
     public function goToDashboard()
     {
-        return view('seller.dashboard');
+
+        
+        $chart_options =
+            [
+                'chart_title' => 'Products qty',
+                'report_type' => 'group_by_string',
+                'model' => 'App\Models\Product',
+                'group_by_field' => 'qty',
+                'chart_type' => 'bar',
+                'filter_field' => 'created_at',
+                'filter_period' => 'month',
+            ];
+
+        $chart = new LaravelChart($chart_options);
+
+        $chart_options = [
+            'chart_title' => 'Users by date',
+            'report_type' => 'group_by_string',
+            'model' => 'App\Models\PurchasedHistory',
+            'group_by_field' => 'qty',
+            'group_by_period' => 'month',
+            'chart_type' => 'bar',
+            'chart_color ' => 'rgb(52, 211, 153)',
+        ];
+
+        $chart3 = new LaravelChart($chart_options);
+
+        return view('seller.dashboard', compact('chart', 'chart3'));
     }
 
     public function updateProfile(Request $request)
@@ -447,15 +476,14 @@ class SellerController extends Controller
             $firstError = $validator->errors()->first();
 
             return redirect()->route('seller.product.edit', $id)->with('error', $firstError);
-
         } else {
 
             Product::where('id', $id)->update([
                 'title' => $request->title,
                 'description' => $request->description,
                 'category_id' => $request->category,
-                'price' => $request -> price,
-                'qty' => $request -> qty,
+                'price' => $request->price,
+                'qty' => $request->qty,
                 'status' => 0,
             ]);
 
@@ -470,10 +498,9 @@ class SellerController extends Controller
 
                 $dbImgName = $productImages[0]->name;
 
-                File::delete(public_path('products/'.$dbImgName));
+                File::delete(public_path('products/' . $dbImgName));
 
                 $productImages[0]->update(['name' => $imagename]);
-
             }
 
             if ($request->image_2) {
@@ -486,10 +513,9 @@ class SellerController extends Controller
 
                 $dbImgName = $productImages[1]->name;
 
-                File::delete(public_path('products/'.$dbImgName));
+                File::delete(public_path('products/' . $dbImgName));
 
                 $productImages[1]->update(['name' => $imagename]);
-
             }
 
             if ($request->image_3) {
@@ -502,34 +528,86 @@ class SellerController extends Controller
 
                 $dbImgName = $productImages[2]->name;
 
-                File::delete(public_path('products/'.$dbImgName));
+                File::delete(public_path('products/' . $dbImgName));
 
                 $productImages[2]->update(['name' => $imagename]);
-
             }
 
             return redirect()->route('seller.product.edit', $id)->with('success', 'Product Updated Success');
-
         }
     }
 
-    public function deleteProduct($id){
+    public function deleteProduct($id)
+    {
         Product::where('id', $id)->update([
             'status' => '4',
         ]);
         return redirect()->back()->with('success', 'Product Deleted Success');
     }
 
-    public function hideProduct($id){
+    public function hideProduct($id)
+    {
         Product::where('id', $id)->update([
             'status' => '2',
         ]);
         return redirect()->back()->with('success', 'Product Hided ');
     }
-    public function unhideProduct($id){
+    public function unhideProduct($id)
+    {
         Product::where('id', $id)->update([
             'status' => '1',
         ]);
         return redirect()->back()->with('success', 'Product Hided ');
+    }
+
+    // orders
+    public function goToNewOrders()
+    {
+
+        // $orders = PurchasedHistory::where(['seller_id', Auth::guard('seller')->user()->id, 'status' => 0])->get();
+
+        $products = Product::where('seller_id', Auth::guard('seller')->user()->id)->get();
+
+        $orders = PurchasedHistory::whereIn('product_id', $products->pluck('id'))->where('status', 0)->get();
+
+        $categories = Category::all();
+
+        return view("seller.new-orders", compact('products', 'orders', 'categories'));
+    }
+    public function goToAwaitingOrders()
+    {
+
+        // $orders = PurchasedHistory::where(['seller_id', Auth::guard('seller')->user()->id, 'status' => 0])->get();
+
+        $products = Product::where('seller_id', Auth::guard('seller')->user()->id)->get();
+
+        $orders = PurchasedHistory::whereIn('product_id', $products->pluck('id'))->where('status', 1)->get();
+        $categories = Category::all();
+
+        return view("seller.awaiting-orders", compact('products', 'orders', 'categories'));
+    }
+
+    public function awaitOrder($id)
+    {
+
+        $order = PurchasedHistory::where('id', $id)->get()->first();
+
+        $order->update([
+            'status' => 1,
+        ]);
+
+        return redirect()->back()->with('success', 'Success');
+    }
+
+    public function shipOrder($id)
+    {
+
+        $order = PurchasedHistory::where('id', $id)->get()->first();
+
+        $order->update([
+            'status' => 2,
+        ]);
+
+        return redirect()->back()->with('success', 'Success');
     }
 }

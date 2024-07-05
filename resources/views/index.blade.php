@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="{{asset('/font-awesome-4.7.0/css/font-awesome.min.css')}}">
 
     
-    <!-- <link rel="icon" href="./assets/icons/petal-hut-icon.png" type="image/x-icon"> -->
+    <link rel="icon" href="{{asset('petal-hut-icon.png')}}" type="image/x-icon"> 
 
 </head>
 
