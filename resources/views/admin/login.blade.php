@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite('resources/css/app.css')
-    <title>Login | Seller</title>
+    <title>Login | Admin</title>
     <!-- tailwind css -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- tailwind css -->
@@ -68,7 +68,6 @@
                                     <div class="flex items-center justify-between">
                                         <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
                                         <div class="text-sm">
-                                            <a href="./forgotPassword.php" class="font-semibold text-emerald-600 hover:text-emerald-500">Forgot password?</a>
                                         </div>
                                     </div>
                                     <div class="mt-2">

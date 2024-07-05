@@ -41,11 +41,11 @@
                     </div>
                     <ul class="py-2 text-base text-gray-700 " aria-labelledby="dropdownInformationButton ">
                         <li>
-                            <a href="./profile.php" class="block px-4 py-2 hover:bg-gray-200 ">Settings</a>
+                            <a href="{{route('seller.profile')}}" class="block px-4 py-2 hover:bg-gray-200 ">Settings</a>
                         </li>
                     </ul>
                     <div class="py-2">
-                        <a href="./logout.php" class="block px-4 py-2 text-base text-gray-700 hover:bg-gray-200 ">Sign out</a>
+                        <a href="{{route('seller.logout')}}" class="block px-4 py-2 text-base text-gray-700 hover:bg-gray-200 ">Sign out</a>
                     </div>
                 </div>
 

@@ -1,6 +1,5 @@
 @include('../header')
 
-
 <section class="bg-slate-100 pt-10 pb-10 h-screen ">
 
     <div class="md:flex md:flex-row">
@@ -47,7 +46,7 @@
                         <div class="md:basis-1/4">
                             <div class="mt-10 h-64 overflow-hidden">
 
-                            @if ($profileImage)
+                            @if (!$profileImage->isEmpty())
 
                             <img src="{{url('user/images/'.$profileImage[0]->name)}}" alt="profile-image" class="rounded object-cover" id="profile-image-prev">
 
@@ -102,7 +101,11 @@
                                 <div class="md:flex md:flex-row gap-4">
                                     <div class="md:basis-3/4">
                                         <div class="uppercase">street</div>
-                                        <input id="profile-address-line" name="street" type="text" name="address" class="bg-slate-200 py-2 px-3 w-full" value="{{$userAddress->line}}">
+                                        <input id="profile-address-line" name="street" type="text" name="address" class="bg-slate-200 py-2 px-3 w-full" value="
+                                        @if ($userAddress)
+                                        {{$userAddress->line}}
+                                        @endif
+                                        ">
                                     </div>
                                     <div class="md:basis-1/4">
                                         <div class="uppercase">city</div>
@@ -149,7 +152,11 @@
                                     </div>
                                     <div>
                                         <div class="uppercase">zipcode</div>
-                                        <input name="zip" id="profile-address-zip" type="text" name="zip-code" class=" bg-slate-200 py-2 px-3 w-full" value="{{$userAddress->postal_code}}">
+                                        <input name="zip" id="profile-address-zip" type="text" name="zip-code" class=" bg-slate-200 py-2 px-3 w-full" value="
+                                        @if ($userAddress)
+                                        {{$userAddress->postal_code}}
+                                        @endif
+                                        ">
                                         <div class="mt-10">
 
                                             <button class="w-full py-2 uppercase hover:bg-slate-500 bg-slate-400 font-bold text-white md:hidden block mb-5">Go Back</button>

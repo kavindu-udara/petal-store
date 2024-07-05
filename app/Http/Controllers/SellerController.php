@@ -305,7 +305,7 @@ class SellerController extends Controller
         $chart = new LaravelChart($chart_options);
 
         $chart_options = [
-            'chart_title' => 'Users by date',
+            'chart_title' => 'Sells by date',
             'report_type' => 'group_by_string',
             'model' => 'App\Models\PurchasedHistory',
             'group_by_field' => 'qty',

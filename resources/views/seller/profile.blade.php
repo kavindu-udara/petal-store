@@ -98,11 +98,10 @@
                                 <div class="grid grid-cols-3 gap-4">
                                     <div></div>
                                     <div>
-                                        <div class="mt-10">
-                                            <a href="{{route('seller.dashboard')}}" class="w-full py-2 uppercase hover:bg-slate-500 bg-slate-400 font-bold text-white">cancel</a>
+                                        <div class="mt-5">
                                         </div>
                                     </div>
-                                    <div class="mt-10">
+                                    <div class="mt-5">
                                         <button class="w-full py-2 uppercase hover:bg-emerald-700 bg-emerald-800 font-bold text-white" type="submit">save</button>
                                     </div>
                                 </div>
@@ -118,5 +117,4 @@
     </div>
 </section>
 
-
-<a href="{{route('seller.logout')}}" style="color: red;">Logout Seller</a>
+@include('seller.footer')

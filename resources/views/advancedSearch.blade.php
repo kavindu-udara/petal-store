@@ -12,7 +12,7 @@
 
                 <div class="md:flex md:flex-row gap-4">
                     <div class="md:basis-3/4">
-                        <input name="text" value="{{$_GET['text']}}" type="text" class="bg-white w-full py-3 px-3" id="advanced-search-text" placeholder="Enter Text To Search">
+                        <input name="text" @if (isset($_GET['text'])) value="{{ $_GET['text'] }}" @endif type="text" class="bg-white w-full py-3 px-3" id="advanced-search-text" placeholder="Enter Text To Search">
                     </div>
                     <div class="md:basis-1/4">
                         <button type="submit" class="hover:bg-emerald-700 bg-emerald-800 uppercase py-3 px-3 w-full font-bold text-white" onclick="advancedSearch();">search</button>
@@ -25,20 +25,17 @@
                         <select name="category" id="advanced-search-category" class="bg-white w-full py-3 px-3">
                             <option value="0">select category</option>
                             @foreach ($categories as $category)
-                            <option 
-                            @php
-                                if(isset($_GET['category']) && $_GET['category'] == $category->id){
-                                    echo 'selected';
+                            <option @php if(isset($_GET['category']) && $_GET['category']==$category->id){
+                                echo 'selected';
                                 }
-                            @endphp
-                            value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endphp
+                                value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">Date From</div>
-                        <input type="date" 
-                        value="
+                        <input type="date" value="
                         @if (isset($_GET['dateFrom']))
                             {{$_GET['dateFrom']}}
                         @endif
@@ -46,8 +43,7 @@
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">Date To</div>
-                        <input 
-                        value="
+                        <input value="
                         @if (isset($_GET['dateTo']))
                             {{$_GET['dateTo']}}
                         @endif
@@ -58,21 +54,18 @@
                 <div class="md:flex md:flex-row gap-4 mt-5">
                     <div class="md:basis-1/3">
                         <div class="uppercase">Price From</div>
-                        <input  
-                        value="
+                        <input 
                         @if (isset($_GET['priceFrom']))
-                            {{$_GET['priceFrom']}}
+                        value="{{$_GET['priceFrom']}}" 
                         @endif
-                        "  name="priceFrom" type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-from">
+                        name="priceFrom" type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-from">
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">Price To</div>
                         <input name="priceTo" 
-                        value="
                         @if (isset($_GET['priceTo']))
-                            {{$_GET['priceTo']}}
-                        @endif
-                        " type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-to">
+                        value="{{$_GET['priceTo']}}" 
+                        @endif type="text" class="bg-white w-full py-3 px-3" id="advanced-search-price-to">
                     </div>
                     <div class="md:basis-1/3">
                         <div class="uppercase">sort by</div>
@@ -95,7 +88,7 @@
 @if ($products->count() > 0)
 
 <section>
-    <div class="grid md:grid-cols-5 gap-4 md:col-start-1 text-base grid-cols-2 px-10">
+    <div class="grid md:grid-cols-5 gap-4 md:col-start-1 text-base grid-cols-2 px-10 mb-5">
 
         @foreach ($products as $product)
 

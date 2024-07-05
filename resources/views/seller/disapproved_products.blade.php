@@ -101,3 +101,5 @@
         </div>
     </section>
 </section>
+
+@include('seller.footer')

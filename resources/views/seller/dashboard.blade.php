@@ -120,6 +120,4 @@
     });
 </script>
 
-</body>
-
-</html>
+@include('seller.footer')

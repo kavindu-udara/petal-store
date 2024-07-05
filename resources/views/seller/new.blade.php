@@ -112,3 +112,5 @@
 </section>
 
 <script src="{{asset('/seller/script.js')}}"></script>
+
+@include('seller.footer')

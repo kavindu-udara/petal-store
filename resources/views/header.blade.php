@@ -70,7 +70,9 @@
                 <!-- Dropdown menu -->
                 <div id="dropdownInformation" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 ">
                     <div class="px-4 py-3 text-base text-gray-900 ">
-                        <div>Kavindu Udara</div>
+                        @if (Auth::user())
+                        <div>{{Auth::user()->fname}} {{Auth::user()->lname}}</div>
+                        @endif
                     </div>
                     <ul class="py-2 text-base text-gray-700" aria-labelledby="dropdownInformationButton">
                         <li>
