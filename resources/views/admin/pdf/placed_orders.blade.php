@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Laravel PDF</title>
+    <title>placed orders</title>
     <style>
         table {
             width: 100%;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laravel PDF</title>
+    <title>print</title>
     <style>
         table {
             width: 100%;
