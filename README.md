@@ -99,7 +99,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ## Contact
 For any questions or suggestions, feel free to reach out:
 - **GitHub:** [kavindu-udara](https://github.com/kavindu-udara)
-- **Email:** [Your Email](mailto:youremail@example.com)
+- **Email:** [Your Email](mailto:udarakavindu99@gmail.com)
 
 ---
 
