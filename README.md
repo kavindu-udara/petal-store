@@ -1,6 +1,4 @@
-Sure, here's a README.md file for your project, Petal Hut:
 
----
 
 # Petal Hut
 
@@ -102,5 +100,3 @@ For any questions or suggestions, feel free to reach out:
 - **Email:** [Your Email](mailto:udarakavindu99@gmail.com)
 
 ---
-
-Feel free to customize any sections as per your preferences.
