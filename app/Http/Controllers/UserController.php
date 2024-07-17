@@ -71,22 +71,6 @@ class UserController extends Controller
 
     public function updateProfile(Request $request)
     {
-        // dd($request);
-
-        // "_token" => "01VtIFTsdvBMmbycKgJhijlU0ovmtEIZ0VN9hj60"
-        // "fname" => "kavindu"
-        // "lname" => "udara"
-        // "mobile" => "0776040673"
-        // "email" => "user@gmail.com"
-        // "street" => "45 A in fg"
-
-        // "city" => "0"
-        // "province" => "0"
-        // "zip" => "20500"
-        //   "profile_img" => 
-        //   Symfony\Component\HttpFoundation\File
-        //   \
-        //   UploadedFile {#43 ▶}
 
         $messages = [
             'first_name.required' => 'The first name is required.',
